@@ -36,8 +36,8 @@ const locationCache = {
 
 // Orders: order_id → order object (mutable — status transitions happen here)
 const orders = {
-  'FOC-2026-05-12-0041': {
-    order_id: 'FOC-2026-05-12-0041',
+  'FC041': {
+    order_id: 'FC041',
     assigned_agent_id: 'ag_01',
     order_status: 'assigned',
     patient_name: 'Meera T.',
@@ -52,8 +52,8 @@ const orders = {
     delivered_at: null,
     proof_photo_url: null,
   },
-  'FOC-2026-05-12-0042': {
-    order_id: 'FOC-2026-05-12-0042',
+  'FC042': {
+    order_id: 'FC042',
     assigned_agent_id: 'ag_01',
     order_status: 'out_for_delivery',
     patient_name: 'Anita S.',
@@ -72,8 +72,8 @@ const orders = {
     delivered_at: null,
     proof_photo_url: null,
   },
-  'FOC-2026-05-12-0039': {
-    order_id: 'FOC-2026-05-12-0039',
+  'FC039': {
+    order_id: 'FC039',
     assigned_agent_id: 'ag_01',
     order_status: 'delivered',
     patient_name: 'Pranav R.',
@@ -96,8 +96,8 @@ const orders = {
 
   // ── Agent 01 extra orders ─────────────────────────────────────────────────
 
-  'FOC-2026-05-18-0051': {
-    order_id: 'FOC-2026-05-18-0051',
+  'FC051': {
+    order_id: 'FC051',
     assigned_agent_id: 'ag_01',
     order_status: 'assigned',
     patient_name: 'Divya S.',
@@ -113,8 +113,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-18-0052': {
-    order_id: 'FOC-2026-05-18-0052',
+  'FC052': {
+    order_id: 'FC052',
     assigned_agent_id: 'ag_01',
     order_status: 'delivered',
     patient_name: 'Sunita V.',
@@ -137,8 +137,8 @@ const orders = {
 
   // ── Agent 02 orders ───────────────────────────────────────────────────────
 
-  'FOC-2026-05-18-0053': {
-    order_id: 'FOC-2026-05-18-0053',
+  'FC053': {
+    order_id: 'FC053',
     assigned_agent_id: 'ag_02',
     order_status: 'out_for_delivery',
     patient_name: 'Ramesh G.',
@@ -158,8 +158,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-18-0054': {
-    order_id: 'FOC-2026-05-18-0054',
+  'FC054': {
+    order_id: 'FC054',
     assigned_agent_id: 'ag_02',
     order_status: 'assigned',
     patient_name: 'Kavitha N.',
@@ -175,8 +175,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-18-0055': {
-    order_id: 'FOC-2026-05-18-0055',
+  'FC055': {
+    order_id: 'FC055',
     assigned_agent_id: 'ag_02',
     order_status: 'delivered',
     patient_name: 'Harish B.',
@@ -199,8 +199,8 @@ const orders = {
 
   // ── Agent 03 orders ───────────────────────────────────────────────────────
 
-  'FOC-2026-05-18-0056': {
-    order_id: 'FOC-2026-05-18-0056',
+  'FC056': {
+    order_id: 'FC056',
     assigned_agent_id: 'ag_03',
     order_status: 'out_for_delivery',
     patient_name: 'Lakshmi P.',
@@ -220,8 +220,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-18-0057': {
-    order_id: 'FOC-2026-05-18-0057',
+  'FC057': {
+    order_id: 'FC057',
     assigned_agent_id: 'ag_03',
     order_status: 'assigned',
     patient_name: 'Venkat R.',
@@ -239,8 +239,8 @@ const orders = {
 
   // ── Agent 04 orders ───────────────────────────────────────────────────────
 
-  'FOC-2026-05-18-0058': {
-    order_id: 'FOC-2026-05-18-0058',
+  'FC058': {
+    order_id: 'FC058',
     assigned_agent_id: 'ag_04',
     order_status: 'assigned',
     patient_name: 'Priya M.',
@@ -256,8 +256,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-18-0059': {
-    order_id: 'FOC-2026-05-18-0059',
+  'FC059': {
+    order_id: 'FC059',
     assigned_agent_id: 'ag_04',
     order_status: 'out_for_delivery',
     patient_name: 'Mohan D.',
@@ -277,8 +277,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-18-0060': {
-    order_id: 'FOC-2026-05-18-0060',
+  'FC060': {
+    order_id: 'FC060',
     assigned_agent_id: 'ag_04',
     order_status: 'delivered',
     patient_name: 'Usha K.',
@@ -301,8 +301,8 @@ const orders = {
 
   // ── Agent 01 extra orders (batch 2) ───────────────────────────────────────
 
-  'FOC-2026-05-19-0061': {
-    order_id: 'FOC-2026-05-19-0061',
+  'FC061': {
+    order_id: 'FC061',
     assigned_agent_id: 'ag_01',
     order_status: 'assigned',
     patient_name: 'Farhan A.',
@@ -318,8 +318,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0062': {
-    order_id: 'FOC-2026-05-19-0062',
+  'FC062': {
+    order_id: 'FC062',
     assigned_agent_id: 'ag_01',
     order_status: 'out_for_delivery',
     patient_name: 'Geeta R.',
@@ -339,8 +339,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0063': {
-    order_id: 'FOC-2026-05-19-0063',
+  'FC063': {
+    order_id: 'FC063',
     assigned_agent_id: 'ag_01',
     order_status: 'delivered',
     patient_name: 'Ismail K.',
@@ -363,8 +363,8 @@ const orders = {
 
   // ── Agent 02 extra orders (batch 2) ───────────────────────────────────────
 
-  'FOC-2026-05-19-0064': {
-    order_id: 'FOC-2026-05-19-0064',
+  'FC064': {
+    order_id: 'FC064',
     assigned_agent_id: 'ag_02',
     order_status: 'assigned',
     patient_name: 'Nandini S.',
@@ -380,8 +380,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0065': {
-    order_id: 'FOC-2026-05-19-0065',
+  'FC065': {
+    order_id: 'FC065',
     assigned_agent_id: 'ag_02',
     order_status: 'out_for_delivery',
     patient_name: 'Chetan V.',
@@ -401,8 +401,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0066': {
-    order_id: 'FOC-2026-05-19-0066',
+  'FC066': {
+    order_id: 'FC066',
     assigned_agent_id: 'ag_02',
     order_status: 'delivered',
     patient_name: 'Shalini M.',
@@ -425,8 +425,8 @@ const orders = {
 
   // ── Agent 03 extra orders (batch 2) ───────────────────────────────────────
 
-  'FOC-2026-05-19-0067': {
-    order_id: 'FOC-2026-05-19-0067',
+  'FC067': {
+    order_id: 'FC067',
     assigned_agent_id: 'ag_03',
     order_status: 'assigned',
     patient_name: 'Deepak N.',
@@ -442,8 +442,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0068': {
-    order_id: 'FOC-2026-05-19-0068',
+  'FC068': {
+    order_id: 'FC068',
     assigned_agent_id: 'ag_03',
     order_status: 'out_for_delivery',
     patient_name: 'Radhika J.',
@@ -463,8 +463,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0069': {
-    order_id: 'FOC-2026-05-19-0069',
+  'FC069': {
+    order_id: 'FC069',
     assigned_agent_id: 'ag_03',
     order_status: 'delivered',
     patient_name: 'Manjunath H.',
@@ -487,8 +487,8 @@ const orders = {
 
   // ── Agent 04 extra orders (batch 2) ───────────────────────────────────────
 
-  'FOC-2026-05-19-0070': {
-    order_id: 'FOC-2026-05-19-0070',
+  'FC070': {
+    order_id: 'FC070',
     assigned_agent_id: 'ag_04',
     order_status: 'assigned',
     patient_name: 'Swathi P.',
@@ -504,8 +504,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0071': {
-    order_id: 'FOC-2026-05-19-0071',
+  'FC071': {
+    order_id: 'FC071',
     assigned_agent_id: 'ag_04',
     order_status: 'out_for_delivery',
     patient_name: 'Gopal T.',
@@ -525,8 +525,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-19-0072': {
-    order_id: 'FOC-2026-05-19-0072',
+  'FC072': {
+    order_id: 'FC072',
     assigned_agent_id: 'ag_04',
     order_status: 'delivered',
     patient_name: 'Asha B.',
@@ -549,8 +549,8 @@ const orders = {
 
   // ── Agent 01 extra orders (batch 3) ───────────────────────────────────────
 
-  'FOC-2026-05-20-0073': {
-    order_id: 'FOC-2026-05-20-0073',
+  'FC073': {
+    order_id: 'FC073',
     assigned_agent_id: 'ag_01',
     order_status: 'assigned',
     patient_name: 'Roopa D.',
@@ -566,8 +566,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0074': {
-    order_id: 'FOC-2026-05-20-0074',
+  'FC074': {
+    order_id: 'FC074',
     assigned_agent_id: 'ag_01',
     order_status: 'out_for_delivery',
     patient_name: 'Vinay S.',
@@ -587,8 +587,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0075': {
-    order_id: 'FOC-2026-05-20-0075',
+  'FC075': {
+    order_id: 'FC075',
     assigned_agent_id: 'ag_01',
     order_status: 'delivered',
     patient_name: 'Zoya M.',
@@ -611,8 +611,8 @@ const orders = {
 
   // ── Agent 02 extra orders (batch 3) ───────────────────────────────────────
 
-  'FOC-2026-05-20-0076': {
-    order_id: 'FOC-2026-05-20-0076',
+  'FC076': {
+    order_id: 'FC076',
     assigned_agent_id: 'ag_02',
     order_status: 'assigned',
     patient_name: 'Pavan K.',
@@ -628,8 +628,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0077': {
-    order_id: 'FOC-2026-05-20-0077',
+  'FC077': {
+    order_id: 'FC077',
     assigned_agent_id: 'ag_02',
     order_status: 'out_for_delivery',
     patient_name: 'Sowmya R.',
@@ -649,8 +649,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0078': {
-    order_id: 'FOC-2026-05-20-0078',
+  'FC078': {
+    order_id: 'FC078',
     assigned_agent_id: 'ag_02',
     order_status: 'delivered',
     patient_name: 'Naveen J.',
@@ -673,8 +673,8 @@ const orders = {
 
   // ── Agent 03 extra orders (batch 3) ───────────────────────────────────────
 
-  'FOC-2026-05-20-0079': {
-    order_id: 'FOC-2026-05-20-0079',
+  'FC079': {
+    order_id: 'FC079',
     assigned_agent_id: 'ag_03',
     order_status: 'assigned',
     patient_name: 'Ananya V.',
@@ -690,8 +690,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0080': {
-    order_id: 'FOC-2026-05-20-0080',
+  'FC080': {
+    order_id: 'FC080',
     assigned_agent_id: 'ag_03',
     order_status: 'out_for_delivery',
     patient_name: 'Suhas M.',
@@ -711,8 +711,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0081': {
-    order_id: 'FOC-2026-05-20-0081',
+  'FC081': {
+    order_id: 'FC081',
     assigned_agent_id: 'ag_03',
     order_status: 'delivered',
     patient_name: 'Bhavana G.',
@@ -735,8 +735,8 @@ const orders = {
 
   // ── Agent 04 extra orders (batch 3) ───────────────────────────────────────
 
-  'FOC-2026-05-20-0082': {
-    order_id: 'FOC-2026-05-20-0082',
+  'FC082': {
+    order_id: 'FC082',
     assigned_agent_id: 'ag_04',
     order_status: 'assigned',
     patient_name: 'Rakesh P.',
@@ -752,8 +752,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0083': {
-    order_id: 'FOC-2026-05-20-0083',
+  'FC083': {
+    order_id: 'FC083',
     assigned_agent_id: 'ag_04',
     order_status: 'out_for_delivery',
     patient_name: 'Meghana S.',
@@ -773,8 +773,8 @@ const orders = {
     proof_photo_url: null,
   },
 
-  'FOC-2026-05-20-0084': {
-    order_id: 'FOC-2026-05-20-0084',
+  'FC084': {
+    order_id: 'FC084',
     assigned_agent_id: 'ag_04',
     order_status: 'delivered',
     patient_name: 'Tejas N.',
@@ -1044,7 +1044,7 @@ app.post('/agent/location', requireAgentAuth, (req, res) => {
 // No agent auth — patient app calls this with its own token or no token for POC
 app.get('/orders/:orderId/tracking', async (req, res) => {
   try {
-    const DEMO_ORDER_ID = 'FOC-2026-05-12-0042';
+    const DEMO_ORDER_ID = 'FC042';
     const order = orders[req.params.orderId] || orders[DEMO_ORDER_ID];
 
     const agent = Object.values(agents).find(a => a.id === order.assigned_agent_id);
@@ -1113,7 +1113,7 @@ app.use((req, res) => {
 });
 
 // ─── Agent movement simulation ────────────────────────────────────────────────
-// Moves ag_01 along a small loop toward FOC-2026-05-12-0042's destination so
+// Moves ag_01 along a small loop toward FC042's destination so
 // the patient app map animates without needing the real agent app running.
 const SIM_WAYPOINTS = [
   { lat: 12.9335, lng: 77.6215 },
