@@ -1007,6 +1007,107 @@ app.post('/agent/orders/:orderId/out-for-delivery', requireAgentAuth, (req, res)
   res.json({ success: true, response: { order_id: order.order_id, order_status: order.order_status, out_for_delivery_at: order.out_for_delivery_at } });
 });
 
+// ─── Delivery confirmation (OTP + override) ────────────────────────────────────
+const DELIVERY_OTP_TTL_MS = 10 * 60 * 1000; // 10 minutes
+const DELIVERY_OTP_MAX_ATTEMPTS = 5;
+
+function generateOtp() {
+  return String(Math.floor(100000 + Math.random() * 900000));
+}
+
+// ─── POST /agent/orders/:orderId/delivery-otp/send ─────────────────────────────
+app.post('/agent/orders/:orderId/delivery-otp/send', requireAgentAuth, (req, res) => {
+  const order = orders[req.params.orderId];
+  if (!order || order.assigned_agent_id !== req.agentId) {
+    return res.status(404).json({ success: false, message: 'Order not found' });
+  }
+  if (order.order_status !== 'out_for_delivery') {
+    return res.status(400).json({ success: false, message: 'Order is not out for delivery' });
+  }
+
+  const code = generateOtp();
+  order.delivery_otp = {
+    code,
+    expires_at: Date.now() + DELIVERY_OTP_TTL_MS,
+    attempts: 0,
+    verified: false,
+  };
+
+  // No SMS/email gateway wired up in this POC — logged the same way the
+  // agent-login OTP is, and echoed back as `demo_code` for the app's demo hint.
+  console.log(`  → Delivery OTP for ${order.order_id} (${order.patient_name}): ${code}`);
+
+  res.json({
+    success: true,
+    response: {
+      sent: true,
+      expires_in: DELIVERY_OTP_TTL_MS / 1000,
+      demo_code: code,
+    },
+  });
+});
+
+// ─── POST /agent/orders/:orderId/delivery-otp/verify ───────────────────────────
+app.post('/agent/orders/:orderId/delivery-otp/verify', requireAgentAuth, (req, res) => {
+  const order = orders[req.params.orderId];
+  if (!order || order.assigned_agent_id !== req.agentId) {
+    return res.status(404).json({ success: false, message: 'Order not found' });
+  }
+
+  const { otp } = req.body;
+  const record = order.delivery_otp;
+  if (!record) {
+    return res.status(400).json({ success: false, message: 'Request a code first' });
+  }
+  if (Date.now() > record.expires_at) {
+    return res.status(400).json({ success: false, message: 'Code expired. Please resend.' });
+  }
+  if (record.attempts >= DELIVERY_OTP_MAX_ATTEMPTS) {
+    return res.status(429).json({ success: false, message: 'Too many attempts. Please resend.' });
+  }
+  if (otp !== record.code) {
+    record.attempts += 1;
+    return res.status(400).json({
+      success: false,
+      message: 'Incorrect code',
+      response: { attempts_remaining: DELIVERY_OTP_MAX_ATTEMPTS - record.attempts },
+    });
+  }
+
+  record.verified = true;
+  console.log(`  → Delivery OTP verified for ${order.order_id}`);
+  res.json({ success: true, response: { verified: true } });
+});
+
+// ─── POST /agent/orders/:orderId/delivery-override ─────────────────────────────
+// Logged + audited path used when the patient genuinely cannot share the OTP.
+app.post('/agent/orders/:orderId/delivery-override', requireAgentAuth, upload.single('id_card'), (req, res) => {
+  const order = orders[req.params.orderId];
+  if (!order || order.assigned_agent_id !== req.agentId) {
+    return res.status(404).json({ success: false, message: 'Order not found' });
+  }
+  const { reason } = req.body;
+  if (!reason) {
+    return res.status(400).json({ success: false, message: 'Reason is required' });
+  }
+  if (!req.file) {
+    return res.status(400).json({ success: false, message: 'Patient ID card photo is required' });
+  }
+
+  order.delivery_override_reason = reason;
+  order.id_card_captured_at = nowISO();
+
+  console.log(`  → ${order.order_id} delivery override recorded: "${reason}" (id card: ${req.file.size} bytes)`);
+  res.json({
+    success: true,
+    response: {
+      order_id: order.order_id,
+      override_reason: reason,
+      id_card_captured: true,
+    },
+  });
+});
+
 // ─── POST /agent/orders/:orderId/deliver ──────────────────────────────────────
 app.post('/agent/orders/:orderId/deliver', requireAgentAuth, upload.single('photo'), (req, res) => {
   const order = orders[req.params.orderId];
@@ -1020,13 +1121,24 @@ app.post('/agent/orders/:orderId/deliver', requireAgentAuth, upload.single('phot
     return res.json({ success: true, response: { order_id: order.order_id, order_status: order.order_status, delivered_at: order.delivered_at, proof_photo_url: order.proof_photo_url } });
   }
 
+  // Delivery must be confirmed — either the patient's OTP was verified, or an
+  // audited override (reason + ID card) was recorded via /delivery-override.
+  const overrideReason = req.body.override_reason || order.delivery_override_reason;
+  if (!order.delivery_otp?.verified && !overrideReason) {
+    return res.status(400).json({
+      success: false,
+      message: 'Delivery must be confirmed via OTP or a recorded override before marking delivered.',
+    });
+  }
+
   const label = nowLabel();
   order.order_status = 'delivered';
   order.delivered_at = req.body.delivered_at || nowISO();
   order.proof_photo_url = `https://picsum.photos/seed/${order.order_id}/400/300`;
   order.stage_dates.delivered = label;
+  if (overrideReason) order.delivery_override_reason = overrideReason;
 
-  console.log(`  → ${order.order_id} → delivered (photo: ${req.file.size} bytes)`);
+  console.log(`  → ${order.order_id} → delivered (photo: ${req.file.size} bytes)${overrideReason ? ` [override: ${overrideReason}]` : ''}`);
   res.json({ success: true, response: { order_id: order.order_id, order_status: order.order_status, delivered_at: order.delivered_at, proof_photo_url: order.proof_photo_url } });
 });
 
@@ -1160,6 +1272,9 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('  GET  /agent/orders');
   console.log('  GET  /agent/orders/:id');
   console.log('  POST /agent/orders/:id/out-for-delivery');
+  console.log('  POST /agent/orders/:id/delivery-otp/send');
+  console.log('  POST /agent/orders/:id/delivery-otp/verify');
+  console.log('  POST /agent/orders/:id/delivery-override');
   console.log('  POST /agent/orders/:id/deliver');
   console.log('  POST /agent/location');
   console.log('  GET  /orders/:id/tracking   ← patient app');
